@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'smspartner'
+
+# You can add fixtures and/or initialization code here to make experimenting
+# with your gem easier. You can also use a different console, if you like.
+
+@secrets = YAML.load_file File.expand_path('../../spec/secrets.yml', __FILE__)
+
+def configure!(api_key)
+  Smspartner.configure do |config|
+    config.sandbox = true
+    config.api_key = api_key
+    config.sender  = 'Test'
+  end
+end
+
+configure!(@secrets[:api_key])
+
+# (If you use this, don't forget to add pry to your Gemfile!)
+# require 'pry'
+# Pry.start
+
+require 'irb'
+IRB.start(__FILE__)
