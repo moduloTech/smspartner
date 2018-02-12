@@ -2,7 +2,6 @@ require 'smspartner/version'
 require 'smspartner/configurator'
 
 module Smspartner
-  # Your code goes here...
   class << self
 
     def configure(&block)

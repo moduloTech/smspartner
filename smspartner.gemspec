@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q(Ruby interface to https://www.smspartner.fr)
   spec.description   = %q(Ruby interface to https://www.smspartner.fr's API)
-  spec.homepage      = 'http://www.modulotech.fr/'
+  spec.homepage      = 'https://www.smspartner.fr/'
+  spec.source        = 'https://github.com/moduloTech/smspartner'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
