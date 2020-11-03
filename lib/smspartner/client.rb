@@ -10,6 +10,8 @@ module Smspartner
 
     SEND_SMS_URL = 'https://api.smspartner.fr/v1/send'.freeze
 
+    SMS_STATUS_URL = 'https://api.smspartner.fr/v1/message-status'.freeze
+
     MY_DATA_URL = 'https://api.smspartner.fr/v1/me'.freeze
 
     ALLOWED_CONFIG_OVERRIDE = %i[sandbox sender range_value].freeze
@@ -23,6 +25,13 @@ module Smspartner
       res = send_request(to, body, config)
       ret = Response.new(res.parsed_response)
       raise SmsSendError.new(ret) if !ret.success? && config[:raise_on_error]
+      ret
+    end
+
+    def sms_status(to:, message_id:, **config)
+      res = status_request(to, message_id, config)
+      ret = Response.new(res.parsed_response)
+      raise SmsStatusError.new(ret) if !ret.success? && config[:raise_on_error]
       ret
     end
 
@@ -50,6 +59,18 @@ module Smspartner
         ).to_json,
         headers: {
           content_type: 'application/json'
+        }
+      )
+    end
+
+    def status_request(to, message_id, config)
+      final_config = @config.to_h.merge!(config)
+      HTTParty.get(
+        SMS_STATUS_URL,
+        {
+          phoneNumber: to,
+          messageId:   message_id,
+          apiKey:      final_config[:api_key]
         }
       )
     end
