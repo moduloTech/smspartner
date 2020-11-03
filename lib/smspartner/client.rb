@@ -67,7 +67,7 @@ module Smspartner
       final_config = @config.to_h.merge!(config)
       HTTParty.get(
         SMS_STATUS_URL,
-        {
+        query: {
           phoneNumber: to,
           messageId:   message_id,
           apiKey:      final_config[:api_key]
