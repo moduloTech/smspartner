@@ -19,6 +19,13 @@ module Smspartner
       client.send_sms(**args)
     end
 
+    def sms_status(**args)
+      if client.nil?
+        raise 'Initialization Error: You must call Smspartner.configure before calling sms_status'
+      end
+      client.sms_status(**args)
+    end
+
     def account_data
       if client.nil?
         raise 'Initialization Error: You must call Smspartner.configure before calling account_data'
